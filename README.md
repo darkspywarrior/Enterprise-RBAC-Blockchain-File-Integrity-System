@@ -1,356 +1,303 @@
-# Multi-Container-Application
-[Multi-Container Application Project](https://roadmap.sh/projects/multi-container-service)
+# 🔐 Enterprise RBAC Blockchain File Integrity System
 
-![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
-![Node.js](https://img.shields.io/badge/Node.js-Backend-green)
-![MongoDB](https://img.shields.io/badge/MongoDB-Database-green)
-![CI/CD](https://img.shields.io/badge/CI/CD-GitHub%20Actions-orange)
-![License](https://img.shields.io/badge/License-MIT-blue)
-
-A **production-style Todo API** built with **Node.js, Express, MongoDB, Docker, Nginx, Swagger, Prometheus, and Grafana**.
-
-This project demonstrates **real-world DevOps practices**, including:
-
-* Containerization with Docker
-* Multi-container orchestration with Docker Compose
-* Reverse proxy configuration with Nginx
-* API documentation using Swagger
-* Monitoring using Prometheus and Grafana
-* CI/CD automation using GitHub Actions
-
-This project is designed as a **DevOps portfolio project** demonstrating how modern applications are built and deployed.
+> Production-style Role-Based Access Control (RBAC) File Integrity Verification Platform built using Hyperledger Fabric, Spring Boot, MinIO, Docker, Prometheus, Grafana, and NGINX.
 
 ---
 
-# 📦 Tech Stack
+# 🚀 Overview
 
-| Technology     | Purpose                       |
-| -------------- | ----------------------------- |
-| Node.js        | Backend runtime               |
-| Express        | REST API framework            |
-| MongoDB        | NoSQL database                |
-| Mongoose       | MongoDB ODM                   |
-| Docker         | Containerization              |
+This project is an enterprise-grade blockchain-powered file integrity and verification system implementing:
+
+- 🔐 Role-Based Access Control (RBAC)
+- 📦 Hyperledger Fabric Blockchain
+- 🧾 Immutable Audit Trails
+- ☁️ MinIO Object Storage
+- ⚡ Spring Boot Microservices
+- 📊 Prometheus Monitoring
+- 📈 Grafana Dashboards
+- 🐳 Docker Multi-Container Architecture
+- 🌐 NGINX Reverse Proxy
+- 📘 Swagger API Documentation
+
+The system securely stores file fingerprints (SHA-256 hashes) on blockchain while storing actual file binaries in MinIO object storage.
+
+This enables:
+
+✅ Tamper Detection  
+✅ Immutable Verification  
+✅ Distributed Trust  
+✅ Secure Off-Chain Storage  
+✅ Enterprise Monitoring & Observability  
+
+---
+
+# 🏗️ System Architecture
+
+```text
+                    ┌──────────────────────┐
+                    │     Client Layer     │
+                    │  Browser / Postman   │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │   NGINX Reverse Proxy │
+                    │     TLS / Routing     │
+                    └──────────┬───────────┘
+                               │
+        ┌──────────────────────┼──────────────────────┐
+        ▼                                              ▼
+
+┌──────────────────────┐                 ┌──────────────────────┐
+│ Spring Boot API      │                 │ RBAC Authorization   │
+│ File Upload Service  │                 │ Access Validation    │
+└──────────┬───────────┘                 └──────────────────────┘
+           │
+           ▼
+
+┌─────────────────────────────────────────────────────────────┐
+│                    SHA-256 HASHING                         │
+│      Generate Cryptographic File Fingerprints              │
+└──────────────────────┬──────────────────────────────────────┘
+                       │
+          ┌────────────┴────────────┐
+          ▼                         ▼
+
+┌──────────────────────┐   ┌──────────────────────────────┐
+│      MinIO Storage   │   │ Hyperledger Fabric Blockchain │
+│  Binary Object Store │   │ Immutable Ledger + Chaincode │
+└──────────────────────┘   └──────────────────────────────┘
+                                         │
+                                         ▼
+                           ┌──────────────────────────┐
+                           │  Org1 + Org2 Peers      │
+                           │  RAFT Ordering Service  │
+                           └──────────────────────────┘
+
+
+┌─────────────────────────────────────────────────────────────┐
+│                   Monitoring Stack                         │
+│        Prometheus + Grafana + Actuator                    │
+└─────────────────────────────────────────────────────────────┘
+```
+# ✨ Core Features
+
+## 🔐 Blockchain File Integrity
+
+- SHA-256 file fingerprint generation
+- Immutable blockchain storage
+- Tamper detection
+- File integrity verification workflows
+
+---
+
+## 🛡 RBAC (Role-Based Access Control)
+
+Supports multiple user roles:
+
+| Role | Access |
+|---|---|
+| Admin | Full system access |
+| Auditor | Audit trail verification |
+| User | Upload & verify files |
+| Viewer | Read-only access |
+
+---
+
+## 📦 Hybrid Storage Architecture
+
+### On-Chain Storage
+
+Stores:
+
+- SHA-256 hashes
+- file metadata
+- timestamps
+- ownership records
+
+### Off-Chain Storage
+
+Stores:
+
+- actual file binaries
+- PDFs
+- images
+- documents
+
+using MinIO object storage.
+
+---
+
+## 📘 Swagger API Documentation
+
+Interactive REST API testing interface.
+
+Supports:
+
+- upload APIs
+- verification APIs
+- audit APIs
+- RBAC testing
+
+---
+
+## 📊 Monitoring & Observability
+
+Integrated:
+
+- Prometheus metrics
+- Grafana dashboards
+- JVM monitoring
+- blockchain transaction tracking
+
+---
+
+# 📦 Technology Stack
+
+| Technology | Purpose |
+|---|---|
+| Java 17 | Backend Runtime |
+| Spring Boot | REST APIs |
+| Hyperledger Fabric | Enterprise Blockchain |
+| MinIO | Object Storage |
+| Docker | Containerization |
 | Docker Compose | Multi-container orchestration |
-| Nginx          | Reverse proxy                 |
-| Swagger        | API documentation             |
-| Prometheus     | Metrics collection            |
-| Grafana        | Monitoring dashboards         |
-| GitHub Actions | CI/CD automation              |
+| Prometheus | Metrics collection |
+| Grafana | Visualization dashboards |
+| NGINX | Reverse proxy |
+| Swagger/OpenAPI | API documentation |
+| SHA-256 | Cryptographic hashing |
+| RAFT | Consensus algorithm |
 
 ---
 
-# 🏗 System Architecture
+# 🔗 API Endpoints
 
-```
-Client / Browser
-        │
-        ▼
-   Nginx Reverse Proxy
-        │
-        ▼
-   Node.js API (Express)
-        │
-        ▼
-      MongoDB
-        │
-        ▼
-Monitoring Stack
- ├── Prometheus
- └── Grafana
-```
+## File APIs
 
-CI/CD Pipeline:
-
-```
-Developer
-   │
-   ▼
-GitHub Repository
-   │
-   ▼
-GitHub Actions
-   │
-   ▼
-Docker Build & Deployment
-```
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/file/upload` | Upload file to blockchain |
+| POST | `/file/verify` | Verify file integrity |
+| POST | `/file/upload-and-verify` | Upload + verify |
+| GET | `/file/hash` | Current stored hash |
+| DELETE | `/file/clear` | Clear temporary state |
 
 ---
 
-# ✨ Features
+## Blockchain APIs
 
-* Full **CRUD REST API**
-* **MongoDB persistence**
-* **Dockerized services**
-* **Multi-container architecture**
-* **Swagger interactive API documentation**
-* **Reverse proxy with Nginx**
-* **Monitoring dashboards**
-* **CI/CD pipeline**
-* **Health check endpoints**
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/audit/trail` | View blockchain records |
+| GET | `/fabric/status` | Fabric network status |
 
 ---
 
-# 📡 API Endpoints
+## Monitoring APIs
 
-| Method | Endpoint      | Description    |
-| ------ | ------------- | -------------- |
-| GET    | `/todos`      | Get all todos  |
-| POST   | `/todos`      | Create a todo  |
-| GET    | `/todos/{id}` | Get todo by ID |
-| PUT    | `/todos/{id}` | Update todo    |
-| DELETE | `/todos/{id}` | Delete todo    |
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/actuator/prometheus` | Prometheus metrics |
+| GET | `/swagger-ui/index.html` | Swagger UI |
 
 ---
 
-# 🧪 Example API Request
+# 🔐 Security Features
 
-Create a Todo:
+## SHA-256 Integrity Verification
 
-```json
-{
-  "title": "Learn DevOps",
-  "completed": false
-}
-```
+Every uploaded file generates a cryptographic SHA-256 fingerprint.
+
+Even a 1-bit modification changes the entire hash.
 
 ---
 
-# 📘 API Documentation (Swagger)
+## TLS Encryption
 
-Swagger provides interactive API documentation.
+All Fabric peer communications use:
 
-Open:
-
-```
-http://localhost:3000/api-docs
-```
-
-You can:
-
-* Test API requests
-* Send POST/PUT bodies
-* View responses
-* Explore endpoints
+- TLS certificates
+- secure gRPC channels
+- encrypted communication
 
 ---
 
-# 📊 Monitoring
+## Immutable Ledger
 
-The monitoring stack includes **Prometheus + Grafana**.
+Blockchain ensures:
 
-### Prometheus
+- append-only transactions
+- tamper resistance
+- decentralized trust
 
-Metrics collection service.
+---
 
-```
-http://localhost:9090
-```
+## RBAC Authorization
 
-### Grafana
+Users are restricted based on roles and permissions.
 
-Visualization dashboard.
+---
 
-```
-http://localhost:3001
-```
+## Input Validation
 
-Default login:
+- file size restrictions
+- file type validation
+- invalid request filtering
 
-```
-username: admin
-password: admin
-```
+---
+
+# 📊 Monitoring Dashboard
+
+## Prometheus Metrics
+
+Tracked metrics include:
+
+| Metric | Description |
+|---|---|
+| `file_uploads_total` | Total uploads |
+| `fabric_transactions_total` | Blockchain transactions |
+| `process_cpu_usage` | CPU monitoring |
+| `jvm_memory_used_bytes` | JVM memory |
+| `http_server_requests_seconds` | API latency |
+| `minio_objects_total` | MinIO object count |
+
+---
+
+## Grafana Dashboard
+
+Real-time dashboards for:
+
+- blockchain health
+- upload statistics
+- transaction monitoring
+- CPU / memory graphs
+- API response metrics
 
 ---
 
 # 📁 Project Structure
 
-```
-Multi-Container-Application
+```text
+Enterprise-RBAC-Blockchain-System
 │
-├── src
-│   ├── models
-│   │   └── Todo.js
-│   │
-│   ├── routes
-│   │   └── todoRoutes.js
-│   │
-│   ├── server.js
-│   └── swagger.js
+├── fingerprint-service
+│   ├── src
+│   ├── Dockerfile
+│   ├── pom.xml
+│   ├── wallet
+│   └── fabric-config
+│
+├── blockchain
+│   └── fabric
+│       └── fabric-samples
+│
+├── prometheus
+│   └── prometheus.yml
 │
 ├── nginx
 │   └── nginx.conf
 │
 ├── docker-compose.yml
-├── Dockerfile
-├── package.json
-└── README.md
-```
-
----
-
-# ⚙️ Running the Project Locally
-
-## 1️⃣ Prerequisites
-
-Install:
-
-* Docker
-* Docker Compose
-
-Optional:
-
-* Node.js
-
----
-
-## 2️⃣ Clone the Repository
-
-```
-git clone git@github.com:darkspywarrior/Multi-Container-Application.git
-```
-
-```
-cd Multi-Container-Application
-```
-
----
-
-## 3️⃣ Start the Application
-
-```
-docker compose up --build
-```
-
-This starts the following containers:
-
-* API container
-* MongoDB container
-* Nginx reverse proxy
-* Prometheus monitoring
-* Grafana dashboard
-
----
-
-## 4️⃣ Access Services
-
-| Service      | URL                            |
-| ------------ | ------------------------------ |
-| API          | http://localhost:3000          |
-| Swagger Docs | http://localhost:3000/api-docs |
-| Prometheus   | http://localhost:9090          |
-| Grafana      | http://localhost:3001          |
-
----
-
-# 🛑 Stop the Application
-
-```
-docker compose down
-```
-
----
-
-# 🔁 CI/CD Pipeline
-
-This project includes **GitHub Actions CI/CD**.
-
-Every push to the `main` branch triggers:
-
-1️⃣ Repository checkout
-2️⃣ Docker build
-3️⃣ Deployment process
-
-Workflow file:
-
-```
-.github/workflows/deploy.yml
-```
-
----
-
-# 🌐 Reverse Proxy (Nginx)
-
-Nginx forwards external requests to the Node API.
-
-Request flow:
-
-```
-Client
-   │
-   ▼
-Nginx
-   │
-   ▼
-Node API
-   │
-   ▼
-MongoDB
-```
-
-Benefits:
-
-* Security
-* Clean routing
-* SSL support (future)
-
----
-
-# 🔐 Environment Variables
-
-Create `.env` file:
-
-```
-MONGO_URL=mongodb://mongo:27017/todos
-PORT=3000
-```
----
-
-# 🚀 Future Improvements
-
-Possible extensions:
-
-* JWT authentication
-* HTTPS with Let's Encrypt
-* Kubernetes deployment
-* Terraform infrastructure
-* Distributed tracing
-* Rate limiting
-* Load balancing
-
----
-
-# 🤝 Contributing
-
-1️⃣ Fork the repository
-
-2️⃣ Create a new branch
-
-```
-git checkout -b feature-name
-```
-
-3️⃣ Commit changes
-
-```
-git commit -m "Add feature"
-```
-
-4️⃣ Push changes
-
-```
-git push origin feature-name
-```
-
-5️⃣ Open a Pull Request
-
----
-
-
-Add user registration/login (JWT)
-Make it look prettier (React frontend?)
-Add dark mode
-Write unit tests
-Improve error messages
-
+├── README.md
+└── .env
